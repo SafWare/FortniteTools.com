@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FortniteTools.com provides tools and resources for Fortnite players, including maps, account ID lookup, Search similar names, and more.">
+    <meta name="keywords" content="Fortnite, tools, maps, AES keys, account ID, item shop, hotfixes">
+    <title>Search Similar Name</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="FnLogo.png" type="image/x-icon">
+    <style>
+    .loading-text {
+        position: absolute;
+        bottom: -30px;
+        color: #FF4081;
+        font-size: 16px;
+        letter-spacing: 2px;
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+      /* Ensure the result stays under the form */
+      #result-container {
+        margin-top: 20px;
+      }
+      #result-display {
+        margin-top: 10px;
+      }
+      .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: rgba(30, 30, 30, 0.9);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .result-table th,
+      .result-table td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .result-table th {
+        background: linear-gradient(45deg, #FF4081, #D5006D);
+        color: white;
+      }
+
+      .result-table td {
+        color: #E0E0E0;
+      }
+
+      /* Add this to your existing styles */
+      .error-message {
+        color: #ff4444;
+        font-size: 16px;
+        margin-top: 10px;
+        padding: 10px;
+        background: rgba(255, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+    </style>    
+  </head>
+  <body>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <div class="tab-container">
+      <div class="tab">
+          <button onclick="window.location.href='index.html'" class="tablinks">Home</button>
+          <button onclick="window.location.href='Updated Map.html'" class="tablinks">Updated Fortnite Map</button>
+          <button onclick="window.location.href='Get Account ID.html'" class="tablinks">Get Account ID By Username</button>
+          <button onclick="window.location.href='Search Similar Name.html'" class="tablinks">Search Similar Name</button>
+          <button onclick="window.location.href='Updated AES Keys.html'" class="tablinks">Updated AES Keys</button>
+          <button onclick="window.location.href='Item Shop.html'" class="tablinks">Item Shop</button>
+          <button onclick="window.location.href='Updating.html'" class="tablinks">Updating</button>
+          <button onclick="window.location.href='Terms-And-Conditions.html'" class="tablinks">T&C</button>
+          <button onclick="window.location.href='Privacy-Policy.html'" class="tablinks">Privacy Policy</button>
+          <button onclick="window.location.href='Copyright-Notice.html'" class="tablinks">Copyright Notice</button>
+      </div>
+  </div>
+
+    <div class="intro">
+      <h1>Search Similar Name</h1>
+      <div class="form-container">
+        <form id="lookupForm">
+          <input type="text" id="username" name="username" placeholder="Enter Username" required autocomplete="off" />
+          <button type="submit">Lookup</button>
+        </form>
+
+        <div id="error-message" class="error-message"></div>
+      </div>
+    </div>
+
+    <!-- Added a container to ensure results appear below the lookup button -->
+    <div id="result-container">
+      <div id="result-display"></div>
+    </div>
+
+    <footer>
+      <p>© 2024 FortniteTools.com. All rights reserved. Fortnite® is a trademark of Epic Games, Inc. FortniteTools.com is not affiliated with, sponsored by, or endorsed by Epic Games.</p>
+    </footer>
+
+    <script>
+      document.getElementById('lookupForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const username = document.getElementById('username').value.trim();
+          const resultDisplay = document.getElementById('result-display');
+          
+          if (!username) {
+              setErrorMessage('Please enter a username.');
+              return;
+          }
+      
+          // Clear previous results
+          resultDisplay.innerHTML = '';
+          
+          // Use the advanced lookup API
+          const apiUrl = 'https://fortniteapi.io/v2/lookup/advanced?username=' + username;
+          fetch(apiUrl, {
+              headers: {
+                  'Authorization': '5f219c60-7b855efc-a0a28665-46ee1c3f'
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data && data.matches && data.matches.length > 0) {
+                  setErrorMessage(''); // Clear any error messages
+                  
+                  // Create table only when we have results
+                  const resultTable = document.createElement('table');
+                  resultTable.classList.add('result-table');
+                  
+                  // Add header row
+                  const headerRow = document.createElement('tr');
+                  ['Username', 'Account ID', 'Platform'].forEach(header => {
+                      const headerCell = document.createElement('th');
+                      headerCell.textContent = header;
+                      headerRow.appendChild(headerCell);
+                  });
+                  resultTable.appendChild(headerRow);
+
+                  // Add data rows
+                  data.matches.forEach(match => {
+                      if (match.matches && match.matches.length > 0) {
+                          const dataRow = document.createElement('tr');
+                          const values = [
+                              match.matches[0].value || 'N/A',
+                              match.accountId || 'N/A',
+                              match.matches[0].platform || 'epic'
+                          ];
+                          
+                          values.forEach(value => {
+                              const dataCell = document.createElement('td');
+                              dataCell.textContent = value;
+                              dataRow.appendChild(dataCell);
+                          });
+                          resultTable.appendChild(dataRow);
+                      }
+                  });
+                  
+                  resultDisplay.appendChild(resultTable);
+              } else {
+                  setErrorMessage('No similar names found.');
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              setErrorMessage('An error occurred while fetching data.');
+          });
+      });
+      
+      function setErrorMessage(message) {
+          const errorDiv = document.getElementById('error-message');
+          const resultDisplay = document.getElementById('result-display');
+          
+          // Clear previous results when showing an error
+          if (message) {
+              resultDisplay.innerHTML = '';
+          }
+          
+          if (errorDiv) {
+              errorDiv.textContent = message;
+              errorDiv.style.display = message ? 'block' : 'none';
+          }
+      }
+      </script>      
+    <script>
+        // Create and add loading overlay
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+        document.body.appendChild(loadingOverlay);
+
+        // Force loader to show for 1 second
+        setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+        }, 1000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updating</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="FnLogo.png" type="image/x-icon">
+
+    <style>
+
+    .loading-text {
+        position: absolute;
+        bottom: -30px;
+        color: #FF4081;
+        font-size: 16px;
+        letter-spacing: 2px;
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+        .coming-soon-container {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 64, 129, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FF4081, transparent);
+            animation: loading 3s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
+        }
+
+        .coming-soon h1 {
+            color: #FF4081;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+        }
+
+        .coming-soon p {
+            color: #E0E0E0;
+            font-size: 1.5em;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .status-text {
+            display: inline-block;
+            background: rgba(255, 64, 129, 0.1);
+            padding: 15px 30px;
+            border-radius: 50px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 64, 129, 0.3);
+            font-size: 1.1em;
+            color: #FF4081;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .progress-bar {
+            width: 60%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, #FF4081, #FF80AB);
+            border-radius: 3px;
+            animation: progress 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(50%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab">
+            <button onclick="window.location.href='index.html'" class="tablinks">Home</button>
+            <button onclick="window.location.href='Updated Map.html'" class="tablinks">Updated Fortnite Map</button>
+            <button onclick="window.location.href='Get Account ID.html'" class="tablinks">Get Account ID By Username</button>
+            <button onclick="window.location.href='Search Similar Name.html'" class="tablinks">Search Similar Name</button>
+            <button onclick="window.location.href='Updated AES Keys.html'" class="tablinks">Updated AES Keys</button>
+            <button onclick="window.location.href='Item Shop.html'" class="tablinks">Item Shop</button>
+            <button onclick="window.location.href='Updating.html'" class="tablinks">Updating</button>
+            <button onclick="window.location.href='Terms-And-Conditions.html'" class="tablinks">T&C</button>
+            <button onclick="window.location.href='Privacy-Policy.html'" class="tablinks">Privacy Policy</button>
+            <button onclick="window.location.href='Copyright-Notice.html'" class="tablinks">Copyright Notice</button>
+        </div>
+    </div>
+
+    <div class="coming-soon-container">
+        <div class="coming-soon">
+            <h1>Coming Soon</h1>
+            <p>We're working hard to bring you the latest Fortnite Tool.</p>
+            <div class="progress-bar"></div>
+            <div class="status-text">Under Development</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 FortniteTools.com. All rights reserved. Fortnite® is a trademark of Epic Games, Inc. FortniteTools.com is not affiliated with, sponsored by, or endorsed by Epic Games.</p>
+    </footer>
+</body>
+</html>

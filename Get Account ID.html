@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FortniteTools.com provides tools and resources for Fortnite players, including maps, account ID lookup, Search similar names, and more.">
+    <meta name="keywords" content="Fortnite, tools, maps, AES keys, account ID, item shop, hotfixes">
+    <title>Account ID Lookup</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Updated styles */
+      #result-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+      
+      #result-display {
+        width: 100%;
+      }
+      
+      .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: rgba(30, 30, 30, 0.9);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      
+      .result-table th,
+      .result-table td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .result-table th {
+        background: linear-gradient(45deg, #FF4081, #D5006D);
+        color: white;
+      }
+      
+      .error-message {
+        color: #ff4444;
+        font-size: 16px;
+        margin-top: 10px;
+        padding: 10px;
+        background: rgba(255, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+    </style>
+    <!-- Favicon link -->
+    <link rel="icon" href="FnLogo.png" type="image/x-icon">
+  </head>
+
+  <body>
+    
+    <div class="tab-container">
+      <div class="tab">
+          <button onclick="window.location.href='index.html'" class="tablinks">Home</button>
+          <button onclick="window.location.href='Updated Map.html'" class="tablinks">Updated Fortnite Map</button>
+          <button onclick="window.location.href='Get Account ID.html'" class="tablinks">Get Account ID By Username</button>
+          <button onclick="window.location.href='Search Similar Name.html'" class="tablinks">Search Similar Name</button>
+          <button onclick="window.location.href='Updated AES Keys.html'" class="tablinks">Updated AES Keys</button>
+          <button onclick="window.location.href='Item Shop.html'" class="tablinks">Item Shop</button>
+          <button onclick="window.location.href='Updating.html'" class="tablinks">Updating</button>
+          <button onclick="window.location.href='Terms-And-Conditions.html'" class="tablinks">T&C</button>
+          <button onclick="window.location.href='Privacy-Policy.html'" class="tablinks">Privacy Policy</button>
+          <button onclick="window.location.href='Copyright-Notice.html'" class="tablinks">Copyright Notice</button>
+      </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <div class="intro">
+      <h1>Account ID Lookup</h1>
+      <p class="disclaimer">
+        <strong>Disclaimer:</strong> Please use upper and lower case letters when typing the username, or it will NOT work.
+      </p>
+      
+      <!-- Form section -->
+      <div class="form-container">
+        <form id="lookupForm">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter Username"
+            required
+            autocomplete="off"
+          />
+          <select id="platform" name="platform">
+            <option value="epic">Epic</option>
+            <option value="xbl">Xbox Live</option>
+            <option value="psn">PlayStation Network</option>
+          </select>
+          <button type="submit">Lookup</button>
+        </form>
+
+        <!-- Messages -->
+        <div id="error-message" class="error-message"></div>
+      </div>
+
+      <!-- Results section -->
+      <div id="result-container">
+        <div id="result-display"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        © 2024 FortniteTools.com. All rights reserved. Fortnite® is a trademark of Epic Games, Inc. FortniteTools.com is not affiliated with, sponsored by, or endorsed by Epic Games.
+      </p>
+    </footer>
+
+    <script src="ugly.js"></script>
+
+    <script>
+      function setErrorMessage(message) {
+        const errorDiv = document.getElementById('error-message');
+        const resultDisplay = document.getElementById('result-display');
+        
+        // Clear previous results when showing an error
+        if (message) {
+            resultDisplay.innerHTML = '';
+        }
+        
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = message ? 'block' : 'none';
+        }
+      }
+
+      function displayResult(username, accountId, platform) {
+        const resultDisplay = document.getElementById('result-display');
+        const errorDiv = document.getElementById('error-message');
+        
+        // Clear any previous error messages
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+        
+        const table = document.createElement('table');
+        table.classList.add('result-table');
+        
+        table.innerHTML = `
+            <tr>
+                <th>Username</th>
+                <th>Account ID</th>
+                <th>Platform</th>
+            </tr>
+            <tr>
+                <td>${username}</td>
+                <td>${accountId}</td>
+                <td>${platform}</td>
+            </tr>
+        `;
+        
+        resultDisplay.innerHTML = '';
+        resultDisplay.appendChild(table);
+      }
+    </script>
+
+  </body>
+</html>
