@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/api/status",
-      "dest": "/api/status/index.js"
+      "dest": "/api/status"
     }
   ]
 }
