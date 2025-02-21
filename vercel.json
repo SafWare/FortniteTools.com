@@ -2,7 +2,7 @@
   "version": 2,
   "routes": [
     {
-      "src": "/api/status",
+      "src": "/status",
       "dest": "/api/status"
     }
   ]
